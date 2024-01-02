@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Countdown to 2025</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #000;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #fff;
+    }
+
+    .countdown-container {
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 2px 6px 7px 2px rgba(255, 242, 0, 0.65);
+      width: 900px;
+      height: 300px;
+    }
+
+    .countdown {  /*이게 시간숫자*/
+      font-size: 65px;
+      border: 2px solid #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: inline-block;
+      margin-top: 20px;
+      width: 500px;
+    }
+
+    .quote {
+      font-size: 24px;
+      margin-top: 20px;
+      font-style: italic;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="countdown-container">
+    <h1>Countdown to 2025</h1>
+    <div class="countdown" id="countdown"></div>
+    <div class="quote" id="quote"></div>
+  </div>
+
+  <script>
+    function formatTime(days, hours, minutes, seconds) {
+      return `${('00' + days).slice(-3)}:${('0' + hours).slice(-2)}:${('0' + minutes).slice(-2)}:${('0' + seconds).slice(-2)}`;
+    }
+
+    function initializeClock() {
+      var countdownElement = document.getElementById('countdown');
+      var targetDate = new Date("2025-01-01"); // January 1, 2025
+
+      function updateClock() {
+        var currentTime = new Date();
+        var timeRemaining = targetDate - currentTime;
+
+        var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+        countdownElement.textContent = formatTime(days, hours, minutes, seconds);
+
+        if (timeRemaining <= 0) {
+          clearInterval(timeinterval);
+          countdownElement.textContent = 'Time is up!';
+        }
+      }
+
+      function updateQuote() {
+        var quoteElement = document.getElementById('quote');
+        var quotes = [
+        "Cheers to a new year and another chance for us to get it right. - Oprah Winfrey",
+    "The best way to predict the future is to create it. - Abraham Lincoln",
+    "New year, new opportunities. - Unknown",
+    "The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt",
+    "Every moment is a fresh beginning. - T.S. Eliot",
+    "You are never too old to set another goal or to dream a new dream. - C.S. Lewis",
+    "Believe you can and you're halfway there. - Theodore Roosevelt",
+    "It always seems impossible until it's done. - Nelson Mandela",
+    "Your time is limited, so don't waste it living someone else's life. - Steve Jobs",
+    "The only way to do great work is to love what you do. - Steve Jobs",
+    "Life is 10% what happens to us and 90% how we react to it. - Charles R. Swindoll",
+    "Strive not to be a success, but rather to be of value. - Albert Einstein",
+    "The secret of getting ahead is getting started. - Mark Twain",
+    "In the middle of difficulty lies opportunity. - Albert Einstein",
+    "Change your thoughts and you change your world. - Norman Vincent Peale",
+    "It is never too late to be what you might have been. - George Eliot",
+    "You miss 100% of the shots you don't take. - Wayne Gretzky",
+    "Success is not final, failure is not fatal: It is the courage to continue that counts. - Winston S. Churchill",
+    "The only limit to our realization of tomorrow will be our doubts of today. - Franklin D. Roosevelt",
+    "Don't watch the clock; do what it does. Keep going. - Sam Levenson"
+    // ... 다른 명언 추가
+
+        ];
+
+        function getRandomQuote() {
+          return quotes[Math.floor(Math.random() * quotes.length)];
+        }
+
+        quoteElement.textContent = `"${getRandomQuote()}"`;
+      }
+
+      updateClock();
+      updateQuote();
+      var timeinterval = setInterval(updateClock, 1000); // 1초마다 업데이트하여 초 단위 시간 표시
+      setInterval(updateQuote, 50000); // 명언 업데이트 간격: 50초마다 (10000ms)
+    }
+
+    initializeClock();
+  </script>
+</body>
+</html>
